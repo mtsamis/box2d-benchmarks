@@ -1,0 +1,3 @@
+build/
+src/box2d/build/
+src/box2d-optimized/build/
