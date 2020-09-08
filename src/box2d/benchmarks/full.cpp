@@ -30,7 +30,7 @@
 #include "box2d/box2d.h"
 #include "benchmarks.h"
 
-#define BENCH_ID "opt"
+#define BENCH_ID "box2d"
 
 int main() {
   class : public b2Benchmarks {
