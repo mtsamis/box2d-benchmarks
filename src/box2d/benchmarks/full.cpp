@@ -30,7 +30,7 @@
 #include "box2d/box2d.h"
 #include "benchmarks.h"
 
-#define BENCH_ID "box2d"
+#define BENCH_ID "opt"
 
 int main() {
   class : public b2Benchmarks {
@@ -70,8 +70,9 @@ int main() {
         	  totalTime += time;
         	}
 	        
-	        outfile << world.GetBodyCount() << ", " << (totalTime / 1000000) << std::endl;
-	        std::cout << world.GetBodyCount() << ", " << (totalTime / 1000000.0f) << std::endl;
+	        // fixture count | time
+	        outfile << world.GetProxyCount() << ", " << (totalTime / 1000000) << std::endl;
+	        std::cout << world.GetProxyCount() << ", " << (totalTime / 1000000.0f) << std::endl;
         }
         
         outfile.close();
