@@ -38,7 +38,19 @@ But, those benchmarks are useful to compare two different versions of the librar
 Below are plots generated from the benchmark driver.
 The benchmarks where run on a AMD Ryzed 2600 CPU with 16GB 2993MHz DDR4 RAM.
 
-![Add-pair](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/add-pair.png)
+![Add-Pair](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/add-pair.png)
+![Big-Mobile](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/big-mobile.png)
+![Diagonal](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/diagonal.png)
+![Falling-Circles](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/falling-circles.png)
+![Falling-Squares](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/falling-squares.png)
+![Mild-n^2](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/mild-n^2.png)
+![n^2](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/n^2.png)
+![Mixed-Static-Dynamic](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/mixed-static-dynamic.png)
+![Mostly-Static-(Multi-Body)](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/mostly-static-(multi-body).png)
+![Mostly-Static-(Single-Body)](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/mostly-static-(single-body).png)
+![Multi-Fixture](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/multi-fixture.png)
+![Slow-Explosion](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/slow-explosion.png)
+![Tumbler](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/tumbler.png)
 
 ## Running
 
