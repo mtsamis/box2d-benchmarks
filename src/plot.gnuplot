@@ -1,7 +1,7 @@
 set terminal png
 set output benchmark_output
 
-set xlabel "body count"
+set xlabel "fixture count"
 set ylabel "time (ms)"
 
 set autoscale
