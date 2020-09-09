@@ -38,6 +38,8 @@ But, those benchmarks are useful to compare two different versions of the librar
 Below are plots generated from the benchmark driver.
 The benchmarks where run on a AMD Ryzed 2600 CPU with 16GB 2993MHz DDR4 RAM.
 
+[Add-pair](https://github.com/mtsamis/box2d-benchmarks/blob/master/plots/add-pair.png)
+
 ## Running
 
 To run the benchmarks on your machine and generate the comparison plots:
