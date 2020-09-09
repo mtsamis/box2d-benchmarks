@@ -1,4 +1,5 @@
-set terminal png
+set terminal pngcairo
+set terminal png size 512,384
 set output benchmark_output
 
 set xlabel "fixture count"
