@@ -143,7 +143,7 @@ public:
     benchmarks.insert(benchmarks.begin(), new b2());
 
     class b3 : public b2Benchmark {
-      int32 m_count = 0;
+      int32 m_count;
       int32 e_count;
       
       virtual void InitBenchmark() override {
@@ -151,12 +151,14 @@ public:
         simulationSteps = 1500;
         defaultSize = 1000;
         startSize = 50;
-        endSize = 1000;
+        endSize = 2000;
         sizeInc = 50;
       }
 
       virtual void InitWorld(b2World* world, int32 size) override {
         e_count = size;
+        m_count = 0;
+        
         b2Body* ground = NULL;
 		    
 		    {
