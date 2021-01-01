@@ -23,6 +23,7 @@
 #ifndef B2_FIXTURE_H
 #define B2_FIXTURE_H
 
+#include "b2_api.h"
 #include "b2_body.h"
 #include "b2_collision.h"
 #include "b2_shape.h"
@@ -33,7 +34,7 @@ class b2BroadPhase;
 class b2Fixture;
 
 /// This holds contact filtering data.
-struct b2Filter
+struct B2_API b2Filter
 {
 	b2Filter()
 	{
@@ -57,16 +58,12 @@ struct b2Filter
 
 /// A fixture definition is used to create a fixture. This class defines an
 /// abstract fixture definition. You can reuse fixture definitions safely.
-struct b2FixtureDef
+struct B2_API b2FixtureDef
 {
 	/// The constructor sets the default fixture definition values.
 	b2FixtureDef()
 	{
 		shape = nullptr;
-
-#ifdef ENABLE_USER_DATA
-		userData = nullptr;
-#endif // ENABLE_USER_DATA
 
 #ifdef ENABLE_FRICTION
 		friction = 0.2f;
@@ -74,6 +71,7 @@ struct b2FixtureDef
 
 #ifdef ENABLE_RESTITUTION
 		restitution = 0.0f;
+		restitutionThreshold = 1.0f * b2_lengthUnitsPerMeter;
 #endif // ENABLE_RESTITUTION
 
 		density = 0.0f;
@@ -86,7 +84,7 @@ struct b2FixtureDef
 	
 #ifdef ENABLE_USER_DATA
 	/// Use this to store application specific fixture data.
-	void* userData;
+	b2FixtureUserData userData;
 #endif // ENABLE_USER_DATA
 
 #ifdef ENABLE_FRICTION
@@ -98,6 +96,10 @@ struct b2FixtureDef
 	/// The restitution (elasticity) usually in the range [0,1].
 	float restitution;
 #endif // ENABLE_RESTITUTION
+
+	/// Restitution velocity threshold, usually in m/s. Collisions above this
+	/// speed have restitution applied (will bounce).
+	float restitutionThreshold;
 
 	/// The density, usually in kg/m^2.
 	float density;
@@ -115,7 +117,7 @@ struct b2FixtureDef
 /// such as friction, collision filters, etc.
 /// Fixtures are created via b2Body::CreateFixture.
 /// @warning you cannot reuse fixtures.
-class b2Fixture
+class B2_API b2Fixture
 {
 public:
 	/// Get the type of the child shape. You can use this to down cast to the concrete shape.
@@ -159,10 +161,7 @@ public:
 #ifdef ENABLE_USER_DATA
 	/// Get the user data that was assigned in the fixture definition. Use this to
 	/// store your application specific data.
-	void* GetUserData() const;
-
-	/// Set the user data. Use this to store your application specific data.
-	void SetUserData(void* data);
+	b2FixtureUserData& GetUserData();
 #endif // ENABLE_USER_DATA
 	
 	uint32 GetId();
@@ -208,6 +207,13 @@ public:
 	/// Set the coefficient of restitution. This will _not_ change the restitution of
 	/// existing contacts.
 	void SetRestitution(float restitution);
+
+	/// Get the restitution velocity threshold.
+	float GetRestitutionThreshold() const;
+
+	/// Set the restitution threshold. This will _not_ change the restitution threshold of
+	/// existing contacts.
+	void SetRestitutionThreshold(float threshold);
 #endif // ENABLE_RESTITUTION
 	
 	void UpdateAABB();
@@ -248,6 +254,7 @@ protected:
 
 #ifdef ENABLE_RESTITUTION
 	float m_restitution;
+	float m_restitutionThreshold;
 #endif // ENABLE_RESTITUTION
 	
 	b2Filter m_filter;
@@ -255,7 +262,7 @@ protected:
 	bool m_isSensor;
 
 #ifdef ENABLE_USER_DATA
-	void* m_userData;
+	b2FixtureUserData m_userData;
 #endif // ENABLE_USER_DATA
 	
 	uint32 m_id;
@@ -287,14 +294,9 @@ inline const b2Filter& b2Fixture::GetFilterData() const
 }
 
 #ifdef ENABLE_USER_DATA
-inline void* b2Fixture::GetUserData() const
+inline b2FixtureUserData& b2Fixture::GetUserData()
 {
 	return m_userData;
-}
-
-inline void b2Fixture::SetUserData(void* data)
-{
-	m_userData = data;
 }
 #endif // ENABLE_USER_DATA
 
@@ -357,6 +359,16 @@ inline void b2Fixture::SetRestitution(float restitution)
 	m_restitution = restitution;
 }
 #endif // ENABLE_RESTITUTION
+
+inline float b2Fixture::GetRestitutionThreshold() const
+{
+	return m_restitutionThreshold;
+}
+
+inline void b2Fixture::SetRestitutionThreshold(float threshold)
+{
+	m_restitutionThreshold = threshold;
+}
 
 inline bool b2Fixture::TestPoint(const b2Vec2& p) const
 {

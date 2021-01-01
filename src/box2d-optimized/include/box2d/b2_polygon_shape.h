@@ -22,13 +22,14 @@
 #ifndef B2_POLYGON_SHAPE_H
 #define B2_POLYGON_SHAPE_H
 
+#include "b2_api.h"
 #include "b2_shape.h"
 
 /// A solid convex polygon. It is assumed that the interior of the polygon is to
 /// the left of each edge.
 /// Polygons have a maximum number of vertices equal to b2_maxPolygonVertices.
 /// In most cases you should not need many vertices for a convex polygon.
-class b2PolygonShape : public b2Shape
+class B2_API b2PolygonShape : public b2Shape
 {
 public:
 	b2PolygonShape();
@@ -59,7 +60,7 @@ public:
 	bool TestPoint(const b2Transform& transform, const b2Vec2& p) const override;
 
 	// @see b2Shape::ComputeDistance
-	void ComputeDistance(const b2Transform& xf, const b2Vec2& p, float32* distance, b2Vec2* normal) const;
+	void ComputeDistance(const b2Transform& xf, const b2Vec2& p, float32* distance, b2Vec2* normal) const override;
 
 	/// Implement b2Shape.
 	/// @note because the polygon is solid, rays that start inside do not hit because the normal is

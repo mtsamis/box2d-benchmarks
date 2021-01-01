@@ -32,10 +32,6 @@
 
 b2Fixture::b2Fixture()
 {
-#ifdef ENABLE_USER_DATA
-	m_userData = nullptr;
-#endif // ENABLE_USER_DATA
-
 	m_body = nullptr;
 	m_next = nullptr;
 	m_shape = nullptr;
@@ -57,6 +53,7 @@ void b2Fixture::Create(b2BlockAllocator* allocator, b2Body* body, const b2Fixtur
 
 #ifdef ENABLE_RESTITUTION
 	m_restitution = def->restitution;
+	m_restitutionThreshold = def->restitutionThreshold;
 #endif // ENABLE_RESTITUTION
 
 	m_body = body;
@@ -206,6 +203,7 @@ void b2Fixture::Dump(int32 bodyIndex)
 
 #ifdef ENABLE_RESTITUTION
 	b2Dump("    fd.restitution = %.9g;\n", m_restitution);
+	b2Dump("    fd.restitutionThreshold = %.9g;\n", m_restitutionThreshold);
 #endif // ENABLE_RESTITUTION
 
 	b2Dump("    fd.density = %.9g;\n", m_density);

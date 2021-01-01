@@ -31,7 +31,7 @@
 // Solver debugging is normally disabled because the block solver sometimes has to deal with a poorly conditioned effective mass matrix.
 #define B2_DEBUG_SOLVER 0
 
-bool g_blockSolve = true;
+B2_API bool g_blockSolve = true;
 
 struct b2ContactPositionConstraint {
 	b2Vec2 localPoints[b2_maxManifoldPoints];
@@ -97,6 +97,7 @@ void b2ContactSolver::Initialize(b2ContactSolverDef* def) {
 
 #ifdef ENABLE_RESTITUTION
 		vc->restitution = contact->m_restitution;
+		vc->threshold = contact->m_restitutionThreshold;
 #endif // ENABLE_RESTITUTION
 
 #ifdef ENABLE_TANGENT_SPEED
@@ -220,7 +221,7 @@ void b2ContactSolver::InitializeVelocityConstraints() {
 			vcp->velocityBias = 0.0f;
 
 			float vRel = b2Dot(vc->normal, vB + b2Cross(wB, vcp->rB) - (vA + b2Cross(wA, vcp->rA)));
-			if (vRel < -b2_velocityThreshold) {
+			if (vRel < -vc->threshold) {
 				vcp->velocityBias = -vc->restitution * vRel;
 			}
 #endif // ENABLE_RESTITUTION

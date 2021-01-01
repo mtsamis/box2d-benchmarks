@@ -79,7 +79,7 @@ struct b2BufferFrame {
 /// This broad-phase is optimized for batch operations and global collision detection.
 /// For maximal performance structural modifications (insert, dekete, update) should be
 /// groupped together in batches.
-class b2BroadPhase {
+class B2_API b2BroadPhase {
 public:
 	b2BroadPhase() : b2BroadPhase(32) {}
 	
@@ -297,7 +297,7 @@ void b2BroadPhase::UpdateAndQuery(T* callback) {
   currentBufferSize = 0;
   maxBufferSize = 0;
   
-	b2TreeNode* temp[m_count];
+	b2TreeNode** temp = (b2TreeNode**) b2Alloc(m_count * sizeof(b2TreeNode*));
   m_treeAllocator = m_nodes + m_capacity + staticGroup;
 	m_rootDynamic = BuildAndQuery(callback, staticGroup, m_count, temp, 0);
 
@@ -323,6 +323,8 @@ void b2BroadPhase::UpdateAndQuery(T* callback) {
 
     QueryAll(callback, m_rootStatic, temp, staticCollisionCount);
   }
+
+  b2Free(temp);
 
   if (m_rootDynamic == nullptr) {
     m_root = m_rootStatic;
@@ -509,7 +511,10 @@ b2TreeNode* b2BroadPhase::BuildAndQuery(T* callback, int32 start, int32 end, b2T
 }
 
 inline void b2BroadPhase::RemoveAll() {
-	RemoveAll([](b2Fixture* fixture) { return true; });
+	RemoveAll([](b2Fixture* fixture) {
+	  B2_NOT_USED(fixture);
+	  return true;
+	});
 }
 
 template <typename UnaryPredicate>
@@ -526,7 +531,10 @@ void b2BroadPhase::RemoveAll(UnaryPredicate predicate) {
 }
 
 inline void b2BroadPhase::UpdateAll() {
-	UpdateAll([](b2Fixture* fixture) { return true; });
+	UpdateAll([](b2Fixture* fixture) {
+	  B2_NOT_USED(fixture);
+	  return true;
+	});
 }
 
 template <typename UnaryPredicate>
@@ -545,7 +553,10 @@ inline void b2BroadPhase::UpdateAll(UnaryPredicate predicate) {
 
 template <typename T>
 inline void b2BroadPhase::QueryAll(T* callback) {
-	QueryAll(callback, [](b2Fixture* fixture) { return true; });
+	QueryAll(callback, [](b2Fixture* fixture) {
+	  B2_NOT_USED(fixture);
+	  return true;
+	});
 }
 
 template <typename T, typename UnaryPredicate>
@@ -556,7 +567,7 @@ inline void b2BroadPhase::QueryAll(T* callback, UnaryPredicate predicate) {
 
 	EnsureBuiltTree();
 
-	b2TreeNode* temp[m_count];
+	b2TreeNode** temp = (b2TreeNode**) b2Alloc(m_count * sizeof(b2TreeNode*));
 	int ccount = 0;
 	
 	for (int32 i = 0; i < m_count; i++) {
@@ -569,6 +580,8 @@ inline void b2BroadPhase::QueryAll(T* callback, UnaryPredicate predicate) {
 	}
 	
 	QueryAll(callback, m_root, temp, ccount);
+
+	b2Free(temp);
 }
 
 template <typename T>

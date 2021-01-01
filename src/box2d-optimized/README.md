@@ -4,12 +4,12 @@
 
 [Box2D](https://github.com/erincatto/box2d) is a 2D physics engine for games, developed and maintained by Erin Catto.
 
-*Box2D-optimized* is a Box2D fork that aims to offer much improved perfromance and scalability, while maintining a similar API and feature set.
+*Box2D-optimized* is a Box2D fork that aims to offer improved perfromance and scalability, while maintining a similar API and feature set.
 This library merges commits from upstream Box2D regularly in order to be up to date.
 
-There are a lot of under-the-hood changes in order to achieve this stated speedup, which are described in my document for optimizing Box2D: *TBA*
+A collection of various benchmarks and graphs showcasing the performance improvement can be found in the [box2d-benchmarks](https://github.com/mtsamis/box2d-benchmarks#results) repository.
 
-A collection of various benchmarks and graphs showcasing the performance improvement can be found in the [box2d-benchmarks](https://github.com/mtsamis/box2d-benchmarks) repository.
+There are a lot of under-the-hood changes in order to achieve this stated speedup, which are described in my dissertation for optimizing Box2D: [optimizing-box2d](https://github.com/mtsamis/optimizing-box2d-dissertation/blob/main/optimizing-box2d.pdf)
 
 ## Contributing
 
@@ -98,7 +98,7 @@ You can use the CMake install feature to deploy the library to a central locatio
 be accessed using:
 ```
 find_package(box2d REQUIRED)
-target_link_libraries(mytarget PRIVATE box2d::box2d)
+target_link_libraries(mytarget PRIVATE box2d)
 ```
 You can build and install the library and docs using this command sequence (requires Doxygen):
 ```
