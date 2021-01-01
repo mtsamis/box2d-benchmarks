@@ -26,6 +26,8 @@
 
 #include "box2d/box2d.h"
 
+typedef long long int int64;
+
 class b2Benchmark {
 public:
   b2Benchmark() : gravity(0.0f, -10.0f) {};
